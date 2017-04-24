@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Conductor Example</string>
+    <string name="capital">Capital</string>
+    <string name="population">Population</string>
+    <string name="countries">Countries</string>
+    <string name="language">Language</string>
+    <string name="currency">Currency</string>
+    <string name="timezone">Timezone</string>
+</resources>
