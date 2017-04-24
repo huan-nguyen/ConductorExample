@@ -16,7 +16,7 @@
  *
  */
 
-package net.huannguyen.conductorexample;
+package net.huannguyen.conductorexample.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +27,9 @@ import android.view.ViewGroup;
 import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
+
+import net.huannguyen.conductorexample.R;
+import net.huannguyen.conductorexample.countrygrid.CountryGridController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

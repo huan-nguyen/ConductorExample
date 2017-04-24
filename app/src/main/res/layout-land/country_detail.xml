@@ -4,7 +4,8 @@
  very expensive in terms of performance and need to be done more properly
   (e.g., create a custom view instead of using predefined layouts) in production apps -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<net.huannguyen.conductorexample.countrydetail.CountryDetailView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -143,4 +144,4 @@
                 android:layout_weight="1"/>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</net.huannguyen.conductorexample.countrydetail.CountryDetailView>

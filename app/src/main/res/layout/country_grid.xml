@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<net.huannguyen.conductorexample.countrygrid.CountryGridView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/country_grid"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/image_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</LinearLayout>
+    android:layout_height="match_parent"/>

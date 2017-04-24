@@ -16,23 +16,25 @@
  *
  */
 
-package net.huannguyen.conductorexample;
+package net.huannguyen.conductorexample.countrygrid;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.Adapter;
-import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bluelinelabs.conductor.RouterTransaction;
-import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.squareup.picasso.Picasso;
+
+import net.huannguyen.conductorexample.R;
+import net.huannguyen.conductorexample.model.Country;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +43,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CountryGridController extends BaseController {
+public class CountryGridView extends RecyclerView {
+
+    // Note: Having the controller implementing an interface and pass its reference to this View to handle navigation
+    // upon clicks for demo purposes.
+    // A nicer way of doing this is using RxJava to turn view clicks into a stream which is then observed by a Presenter
+    // declared in the Controller. The Presenter then determines what should be done to response to clicks.
+    private GridEventHandler eventHandler;
 
     // Assume there is a list of countries that has already been obtained.
     // Data referenced from restcountries.eu. Flag images from flagpedia.net.
@@ -61,31 +69,23 @@ public class CountryGridController extends BaseController {
             new Country("Portugal", "Lisbon", 10374822, "https://flagpedia.net/data/flags/normal/pt.png", "Portuguese", "Euro", "UTC+00:00"),
             new Country("United Kingdom", "London", 65110000, "https://flagpedia.net/data/flags/normal/gb.png", "English", "Pound", "UTC+00:00"));
 
-    @BindView(R.id.image_list) RecyclerView imageGrid;
-
-    @NonNull
-    @Override
-    protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        return inflater.inflate(R.layout.country_grid, container, false);
+    public CountryGridView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        init();
     }
 
-    @Override
-    protected void onViewBound(@NonNull View view) {
-        super.onViewBound(view);
-        imageGrid.setLayoutManager(new GridLayoutManager(view.getContext(),
-                view.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? 2: 3));
-        imageGrid.setAdapter(new CountryAdapter(COUNTRIES));
-    }
-
-    @Override
-    protected String getTitle() {
-        return getActivity().getString(R.string.countries);
+    private void init() {
+        setLayoutManager(new GridLayoutManager(getContext(),
+                getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? 2: 3));
+        setAdapter(new CountryAdapter(COUNTRIES));
     }
 
     private void onCountryClicked(Country country) {
-        getRouter().pushController(RouterTransaction.with(new CountryDetailController(country))
-                                                    .pushChangeHandler(new FadeChangeHandler())
-                                                    .popChangeHandler(new FadeChangeHandler()));
+        eventHandler.onCountryClicked(country);
+    }
+
+    public void setEventHandler(GridEventHandler eventHandler) {
+        this.eventHandler = eventHandler;
     }
 
     private class CountryAdapter extends Adapter<CountryViewHolder> {

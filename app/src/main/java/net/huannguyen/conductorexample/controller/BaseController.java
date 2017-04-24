@@ -16,37 +16,21 @@
  *
  */
 
-package net.huannguyen.conductorexample;
+package net.huannguyen.conductorexample.controller;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.Controller;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import net.huannguyen.conductorexample.activity.MainActivity;
 
 public abstract class BaseController extends Controller {
-    private Unbinder unbinder;
 
     protected BaseController() { }
     protected BaseController(Bundle args) {
         super(args);
-    }
-
-    @NonNull
-    protected abstract View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container);
-
-    @NonNull
-    @Override
-    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        View view = inflateView(inflater, container);
-        unbinder = ButterKnife.bind(this, view);
-        onViewBound(view);
-        return view;
     }
 
     @Override
@@ -64,13 +48,4 @@ public abstract class BaseController extends Controller {
     }
 
     protected abstract String getTitle();
-
-    protected void onViewBound(@NonNull View view) { }
-
-    @Override
-    protected void onDestroyView(@NonNull View view) {
-        super.onDestroyView(view);
-        unbinder.unbind();
-        unbinder = null;
-    }
 }

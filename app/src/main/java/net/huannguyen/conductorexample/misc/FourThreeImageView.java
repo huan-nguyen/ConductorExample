@@ -1,4 +1,4 @@
-package net.huannguyen.conductorexample;
+package net.huannguyen.conductorexample.misc;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;

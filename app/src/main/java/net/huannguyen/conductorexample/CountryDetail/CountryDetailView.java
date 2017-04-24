@@ -16,27 +16,32 @@
  *
  */
 
-package net.huannguyen.conductorexample;
+package net.huannguyen.conductorexample.countrydetail;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
+import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import net.huannguyen.conductorexample.R;
+import net.huannguyen.conductorexample.model.Country;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CountryDetailController extends BaseController {
+public class CountryDetailView extends LinearLayout {
 
-    private static final String KEY_COUNTRY = "KEY_COUNTRY";
+    // Note: Having the controller implementing an interface and pass its reference to this View to handle navigation
+    // upon clicks for demo purposes.
+    // A nicer way of doing this is using RxJava to turn view clicks into a stream which is then observed by a Presenter
+    // declared in the Controller. The Presenter then determines what should be done to response to clicks.
+    private DetailEventHandler eventHandler;
 
     @BindView(R.id.flag)
     ImageView flagView;
@@ -58,45 +63,32 @@ public class CountryDetailController extends BaseController {
 
     @OnClick(R.id.flag)
     void onFlagClicked() {
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("geo:0,0?q=%s", country.getName())));
-        mapIntent.setPackage("com.google.android.apps.maps");
-        if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivity(mapIntent);
-        }
+        eventHandler.onFlagClicked();
     }
 
-    private Country country = getArgs().getParcelable(KEY_COUNTRY);
-
-    public CountryDetailController(Country country) {
-        this(new BundleBuilder(new Bundle())
-                .putParcelable(KEY_COUNTRY, country)
-                .build());
+    public CountryDetailView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
     }
 
-    public CountryDetailController(Bundle args) {
-        super(args);
-    }
-
-    @NonNull
-    @Override
-    protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        return inflater.inflate(R.layout.country_detail, container, false);
+    public void setEventHandler(DetailEventHandler eventHandler) {
+        this.eventHandler = eventHandler;
     }
 
     @Override
-    protected void onViewBound(@NonNull View view) {
-        Picasso.with(view.getContext())
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        ButterKnife.bind(this);
+    }
+
+    public void setData(@NonNull Country country) {
+        Picasso.with(getContext())
                .load(country.getFlag())
                .into(flagView);
+
         capitalView.setText(country.getCapital());
         populationView.setText(String.valueOf(country.getPopulation()));
         languageView.setText(country.getLanguage());
         currencyView.setText(country.getCurrency());
         timezoneView.setText(country.getTimezone());
-    }
-
-    @Override
-    protected String getTitle() {
-        return country.getName();
     }
 }

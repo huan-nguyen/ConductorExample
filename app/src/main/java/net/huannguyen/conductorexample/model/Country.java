@@ -16,7 +16,7 @@
  *
  */
 
-package net.huannguyen.conductorexample;
+package net.huannguyen.conductorexample.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
