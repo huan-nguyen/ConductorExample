@@ -21,7 +21,9 @@ package net.huannguyen.conductorexample.countrydetail;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,9 +45,6 @@ public class CountryDetailView extends LinearLayout {
     // declared in the Controller. The Presenter then determines what should be done to response to clicks.
     private DetailEventHandler eventHandler;
 
-    @BindView(R.id.flag)
-    ImageView flagView;
-
     @BindView(R.id.capital)
     TextView capitalView;
 
@@ -60,6 +59,17 @@ public class CountryDetailView extends LinearLayout {
 
     @BindView(R.id.timezone)
     TextView timezoneView;
+
+    // Assign public visibility for the below views for quickly demo view change animation.
+    // Production apps should have this done properly.
+    @BindView(R.id.flag)
+    public ImageView flagView;
+
+    @BindView(R.id.favourite_fab)
+    public FloatingActionButton favouriteFab;
+
+    @BindView(R.id.detail_group)
+    public ViewGroup detailGroup;
 
     @OnClick(R.id.flag)
     void onFlagClicked() {

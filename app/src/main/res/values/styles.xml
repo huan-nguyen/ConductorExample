@@ -7,12 +7,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="CountryDataLabel" parent="@style/TextAppearance.AppCompat.Title">
+    <style name="CountryDataLabel">
         <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:layout_marginRight">24dp</item>
     </style>
 
-    <style name="CountryDataValue" parent="@style/TextAppearance.AppCompat.Body1">
+    <style name="CountryDataValue">
         <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
 </resources>

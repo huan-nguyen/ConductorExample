@@ -24,12 +24,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.RouterTransaction;
-import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 
 import net.huannguyen.conductorexample.R;
 import net.huannguyen.conductorexample.controller.BaseController;
 import net.huannguyen.conductorexample.countrydetail.CountryDetailController;
 import net.huannguyen.conductorexample.model.Country;
+import net.huannguyen.conductorexample.transition.DetailPopAnimChangeHandler;
+import net.huannguyen.conductorexample.transition.DetailPushAnimChangeHandler;
 
 public class CountryGridController extends BaseController implements GridEventHandler {
 
@@ -44,8 +45,8 @@ public class CountryGridController extends BaseController implements GridEventHa
     @Override
     public void onCountryClicked(@NonNull Country country) {
         getRouter().pushController(RouterTransaction.with(new CountryDetailController(country))
-                                               .pushChangeHandler(new FadeChangeHandler())
-                                               .popChangeHandler(new FadeChangeHandler()));
+                                               .pushChangeHandler(new DetailPushAnimChangeHandler())
+                                               .popChangeHandler(new DetailPopAnimChangeHandler()));
     }
 
     @Override

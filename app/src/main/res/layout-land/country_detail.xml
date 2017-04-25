@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- Note: For a quick demo, nested linear layouts with weights are used. However this is
- very expensive in terms of performance and need to be done more properly
-  (e.g., create a custom view instead of using predefined layouts) in production apps -->
+<!-- Note: For a quick demo, nested layouts with weights are used. However this is
+     very expensive in terms of performance and need to be done more properly in production apps
+     (e.g., create a custom view instead of using predefined layouts to avoid multiple
+     measure/layout passes) -->
 
 <net.huannguyen.conductorexample.countrydetail.CountryDetailView
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -24,7 +25,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             tools:src="@android:color/white"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="24dp"
             tools:ignore="ContentDescription"/>
 
         <android.support.design.widget.FloatingActionButton
@@ -34,114 +35,87 @@
             android:src="@drawable/ic_favorite"
             android:scaleType="center"
             android:layout_gravity="bottom|end"
-            android:translationX="-28dp"
-            android:translationY="28dp"/>
+            android:layout_marginEnd="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="-28dp"/>
     </FrameLayout>
 
-    <LinearLayout
+    <TableLayout
+        android:id="@+id/detail_group"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:padding="12dp"
+        android:background="?android:attr/colorBackground">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp">
-
+        <TableRow android:padding="12dp">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/capital"
-                android:textAppearance="@style/CountryDataLabel"
-                android:layout_weight="1"/>
+                style="@style/CountryDataLabel"/>
 
             <TextView
                 android:id="@+id/capital"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/CountryDataValue"
-                android:layout_weight="1"/>
-        </LinearLayout>
+                style="@style/CountryDataValue"/>
+        </TableRow>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp">
-
+        <TableRow android:padding="12dp">
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/population"
-                android:textAppearance="@style/CountryDataLabel"
-                android:layout_weight="1"/>
+                style="@style/CountryDataLabel"/>
 
             <TextView
                 android:id="@+id/population"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/CountryDataValue"
-                android:layout_weight="1"/>
-        </LinearLayout>
+                style="@style/CountryDataValue"/>
+        </TableRow>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp">
-
+        <TableRow android:padding="12dp">
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/language"
-                android:textAppearance="@style/CountryDataLabel"
-                android:layout_weight="1"/>
+                style="@style/CountryDataLabel"/>
 
             <TextView
                 android:id="@+id/language"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/CountryDataValue"
-                android:layout_weight="1"/>
-        </LinearLayout>
+                style="@style/CountryDataValue"/>
+        </TableRow>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp">
-
+        <TableRow android:padding="12dp">
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/currency"
-                android:textAppearance="@style/CountryDataLabel"
-                android:layout_weight="1"/>
+                style="@style/CountryDataLabel"/>
 
             <TextView
                 android:id="@+id/currency"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/CountryDataValue"
-                android:layout_weight="1"/>
-        </LinearLayout>
+                style="@style/CountryDataValue"/>
+        </TableRow>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp">
-
+        <TableRow android:padding="12dp">
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/timezone"
-                android:textAppearance="@style/CountryDataLabel"
-                android:layout_weight="1"/>
+                style="@style/CountryDataLabel"/>
 
             <TextView
                 android:id="@+id/timezone"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/CountryDataValue"
-                android:layout_weight="1"/>
-        </LinearLayout>
-    </LinearLayout>
+                style="@style/CountryDataValue"/>
+        </TableRow>
+    </TableLayout>
 </net.huannguyen.conductorexample.countrydetail.CountryDetailView>
