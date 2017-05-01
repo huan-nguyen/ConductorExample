@@ -19,9 +19,9 @@
 package net.huannguyen.conductorexample.transition;
 
 import android.animation.Animator;
-import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
@@ -54,36 +54,28 @@ public class DetailPushAnimChangeHandler extends AnimatorChangeHandler {
 
         AnimatorSet animatorSet = new AnimatorSet();
 
+        AnimatorSet flagAndDetailAnim = new AnimatorSet();
+
         // Hide the old view
-        Animator hideFromViewAnimator = ObjectAnimator.ofFloat(from, View.ALPHA, 1, 0);
+        Animator hideFromViewAnim = ObjectAnimator.ofFloat(from, View.ALPHA, 1, 0);
 
         // Slide down the flag
-        Animator flagAnimator = ObjectAnimator.ofFloat(detailView.flagView, View.TRANSLATION_Y, -detailView.flagView.getHeight(), 0);
+        Animator flagAnim = ObjectAnimator.ofFloat(detailView.flagView, View.TRANSLATION_Y, -detailView.flagView.getHeight(), 0);
 
         // Slide up the details
-        Animator detailAnimator = ObjectAnimator.ofFloat(detailView.detailGroup, View.TRANSLATION_Y, detailView.detailGroup.getHeight(), 0);
+        Animator detailAnim = ObjectAnimator.ofFloat(detailView.detailGroup, View.TRANSLATION_Y, detailView.detailGroup.getHeight(), 0);
 
-        animatorSet.playTogether(hideFromViewAnimator, flagAnimator, detailAnimator);
-        animatorSet.setDuration(300);
-        animatorSet.setInterpolator(new FastOutSlowInInterpolator());
-        animatorSet.addListener(new AnimatorListener() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                // Scale up the favourite fab
-                detailView.favouriteFab.animate()
-                                       .scaleX(1)
-                                       .scaleY(1)
-                                       .setDuration(200)
-                                       .start();
-            }
+        flagAndDetailAnim.playTogether(hideFromViewAnim, flagAnim, detailAnim);
+        flagAndDetailAnim.setDuration(300);
+        flagAndDetailAnim.setInterpolator(new FastOutSlowInInterpolator());
 
-            @Override
-            public void onAnimationStart(Animator animation) {}
-            @Override
-            public void onAnimationCancel(Animator animation) {}
-            @Override
-            public void onAnimationRepeat(Animator animation) {}
-        });
+        // Scale up the favourite fab
+        PropertyValuesHolder fabScaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 0, 1);
+        PropertyValuesHolder fabScaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 0, 1);
+        Animator favouriteAnim = ObjectAnimator.ofPropertyValuesHolder(detailView.favouriteFab, fabScaleX, fabScaleY)
+                                               .setDuration(200);
+
+        animatorSet.playSequentially(flagAndDetailAnim, favouriteAnim);
 
         animatorSet.start();
 

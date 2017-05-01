@@ -20,6 +20,7 @@ package net.huannguyen.conductorexample.countrygrid;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -138,6 +139,11 @@ public class CountryGridView extends RecyclerView {
                    .load(country.getFlag())
                    .into(flagView);
             nameView.setText(country.getName());
+
+            // Set transition name for flag view to enable transition animation.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                flagView.setTransitionName(country.getName());
+            }
         }
     }
 }

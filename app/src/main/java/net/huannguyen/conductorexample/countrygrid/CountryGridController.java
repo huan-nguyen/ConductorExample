@@ -23,14 +23,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bluelinelabs.conductor.ControllerChangeHandler;
 import com.bluelinelabs.conductor.RouterTransaction;
+import com.bluelinelabs.conductor.changehandler.TransitionChangeHandlerCompat;
 
 import net.huannguyen.conductorexample.R;
 import net.huannguyen.conductorexample.controller.BaseController;
 import net.huannguyen.conductorexample.countrydetail.CountryDetailController;
 import net.huannguyen.conductorexample.model.Country;
 import net.huannguyen.conductorexample.transition.DetailPopAnimChangeHandler;
+import net.huannguyen.conductorexample.transition.DetailPopTransChangeHandler;
 import net.huannguyen.conductorexample.transition.DetailPushAnimChangeHandler;
+import net.huannguyen.conductorexample.transition.DetailPushTransChangeHandler;
 
 public class CountryGridController extends BaseController implements GridEventHandler {
 
@@ -44,9 +48,22 @@ public class CountryGridController extends BaseController implements GridEventHa
 
     @Override
     public void onCountryClicked(@NonNull Country country) {
+        // For demo purposes, use animator change handler for countries with name starting with
+        // a character before 'i' in the alphabet. For other countries, use transition change handler if the app is running on
+        // API level 21+. Use the mentioned animator change handler otherwise.
+        boolean countryNameFirstCharBeforeI = country.getName().toLowerCase().charAt(0) < 'i';
+
+        ControllerChangeHandler pushHandler
+                = countryNameFirstCharBeforeI ? new DetailPushAnimChangeHandler()
+                : new TransitionChangeHandlerCompat(new DetailPushTransChangeHandler(country.getName()), new DetailPushAnimChangeHandler());
+
+        ControllerChangeHandler popHandler
+                = countryNameFirstCharBeforeI ? new DetailPopAnimChangeHandler()
+                : new TransitionChangeHandlerCompat(new DetailPopTransChangeHandler(country.getName()), new DetailPopAnimChangeHandler());
+
         getRouter().pushController(RouterTransaction.with(new CountryDetailController(country))
-                                               .pushChangeHandler(new DetailPushAnimChangeHandler())
-                                               .popChangeHandler(new DetailPopAnimChangeHandler()));
+                                               .pushChangeHandler(pushHandler)
+                                               .popChangeHandler(popHandler));
     }
 
     @Override
