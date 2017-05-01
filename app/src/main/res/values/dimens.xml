@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="touch_raise">8dp</dimen>
+    <!-- Define different margins for pre and post-lollipop to overcome the problem that FABs
+         are added an extra margin of 16dp in pre-lollipop -->
+    <dimen name="fab_margin_vertical">-44dp</dimen>
+    <dimen name="fab_margin_right">12dp</dimen>
 </resources>

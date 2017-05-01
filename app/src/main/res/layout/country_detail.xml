@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <net.huannguyen.conductorexample.countrydetail.CountryDetailView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -37,7 +38,7 @@
 
                 <TextView
                     android:id="@+id/capital"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/CountryDataValue"/>
             </TableRow>
@@ -101,13 +102,14 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/favourite_fab"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="top|end"
             android:scaleType="center"
-            android:src="@drawable/ic_favorite"
-            android:layout_marginTop="-28dp"
-            android:layout_marginEnd="28dp"
-            android:layout_marginRight="28dp"/>
+            app:srcCompat="@drawable/ic_favorite"
+            android:layout_marginTop="@dimen/fab_margin_vertical"
+            android:layout_marginEnd="@dimen/fab_margin_right"
+            android:layout_marginRight="@dimen/fab_margin_right"
+            app:fabSize="normal"/>
     </FrameLayout>
 </net.huannguyen.conductorexample.countrydetail.CountryDetailView>
