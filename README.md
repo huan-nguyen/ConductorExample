@@ -1,0 +1,1 @@
+This repo contains a demo of how to use Conductor to build Android apps which is taked about in my series of blog posts of medium: https://medium.com/@huan.nguyen/exploring-conductor-android-app-development-without-fragments-part-1-fce1eab0c9df
